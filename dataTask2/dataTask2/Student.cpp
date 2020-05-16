@@ -4,7 +4,6 @@
 Student::Student(int id, const string name)
 {
 	this->setId(id);
-	this->name = nullptr;
 	this->setName(name);
 }
 Student::Student()

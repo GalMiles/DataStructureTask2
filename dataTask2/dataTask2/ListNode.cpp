@@ -14,12 +14,13 @@ ListNode::~ListNode()
 	delete this->data;
 }
 
-
+/*
 ListNode::ListNode(const ListNode& other)
 {
 	this->data = other.data;
 	this->next = other.next;
 }
+*/
 
 Student* ListNode::getData()
 {

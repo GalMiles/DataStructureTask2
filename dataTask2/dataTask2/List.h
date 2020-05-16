@@ -6,19 +6,24 @@
 #include "ListNode.h"
 
 class List {
-public:
+private:
 	ListNode* head;
 	ListNode* tail;
 
-private:
-	List(ListNode* head);
+public:
+	List();
 	~List();
 	void makeEmpty();
 	bool isEmpty();
-	void insertToTail();
-	void insertAfter(ListNode* nodeToAddAfter);
-	void deleteNode();
+	void insertToTail(ListNode* nodeToAdd);
+	void insertToHead(ListNode* nodeToAdd);
+	void insertAfter(ListNode* nodeToAddAfter, ListNode* nodeToAdd);
+	void deleteAfterNode(ListNode* nodeToDeleteAfter);
 	void printList();
+	ListNode* getHead();
+	ListNode* getTail();
+	void setTail(ListNode* tail);
+	void setHead(ListNode* head);
 	
 };
 #endif
