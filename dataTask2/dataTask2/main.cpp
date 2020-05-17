@@ -12,6 +12,10 @@ ListNode* findNode(List listToScan, int id,int& counter);
 int NaivePrint(Student** studentArr, int n, int k);
 int BSTPrint(Student** studentArr, int n, int k);
 void makeBSTree(BSTree& treeToBuild, Student** studentArr, int n, int& compareCounter);
+void QuickSort(Student** studentArr, int left, int right, int& compereCounter);
+int Partition(Student** studentArr, int left, int right,int& compereCounter);
+int PrintBySort(Student** studentArr, int n, int k);
+
 
 int main()
 {
@@ -21,8 +25,10 @@ int main()
 	Student** studentArr = GetInput(n, k);
 	//numCompNaive = NaivePrint(studentArr, n, k);
 	//cout << numCompNaive;
-	numCompBst = BSTPrint(studentArr, n, k);
-
+	//numCompBst = BSTPrint(studentArr, n, k);
+	//cout << numCompBst;
+	numCompBst = PrintBySort(studentArr, n, k);
+	cout << numCompBst;
 }
 
 
@@ -36,6 +42,7 @@ Student** GetInput(int& n, int& k)
 	{
 		cin >> id;
 		getline(cin, name);
+
 		studentArr[i] = new Student(id, name);
 	}
 	cin >> k;
@@ -72,7 +79,7 @@ List makeListFromArr(Student** studentArr, int n, int k, int& counter)
 	}
 	return listToReturn;
 }
-//2->5->
+
 ListNode* findNode(List listToScan,int id,int& counter)
 {
 	ListNode* currentNode = listToScan.getHead();
@@ -124,11 +131,48 @@ int BSTPrint(Student** studentArr, int n, int k)
 
  void makeBSTree(BSTree& treeToBuild,Student** studentArr, int n, int& compareCounter)
 {
-	
-
 	for (int i = 0; i < n; i++)
 	{
 		treeToBuild.Insert(studentArr[i]->getId(), studentArr[i]->getName(), compareCounter);
 	}
-
 }
+
+ int PrintBySort(Student** studentArr, int n, int k)
+ {	
+	 int numComp = 0;
+	 QuickSort(studentArr, 0, n - 1, numComp);
+	 for (int i = 0; i < n; i++)
+	 {
+		 int currId = studentArr[i]->getId();
+		 if(currId < k)
+			 cout << currId << " " << studentArr[i]->getName() << endl;
+	 }
+	 return numComp;
+ }
+ void QuickSort(Student** studentArr, int left, int right,int& compereCounter)
+ {
+	 int pivot;
+	 if (left < right)
+	 {
+		 pivot = Partition(studentArr, left, right,compereCounter);
+		 QuickSort(studentArr, left, pivot - 1,compereCounter);
+		 QuickSort(studentArr, pivot + 1 , right,compereCounter);
+	 }
+ }
+
+ int Partition(Student** studentArr, int left, int right, int & compereCounter)
+ {
+	 int indexToReturn = left;
+	 for (int i = left; i < right; i++)
+	 {
+		 if (studentArr[i]->getId() < studentArr[right]->getId())
+		 {			 
+			 swap(studentArr[i], studentArr[indexToReturn]);
+			 indexToReturn++;
+		 }
+		 compereCounter++;
+	 }
+	 swap(studentArr[right], studentArr[indexToReturn]);
+
+	 return indexToReturn;
+ }

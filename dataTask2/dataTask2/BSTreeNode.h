@@ -11,8 +11,7 @@ class BSTreeNode{
 private:
 	KeyType key;
 	DataType data;
-	int childrenLeft;
-	int childrenRight;
+	
 	BSTreeNode* left, *right;
 public:
 	BSTreeNode(KeyType key, DataType data, BSTreeNode* left, BSTreeNode* right);
@@ -25,7 +24,6 @@ public:
 	DataType getData()const;
 	BSTreeNode* getLeft()const;
 	BSTreeNode* getRight()const;
-	int getNumOfChildrenLeft() const;
 	friend class BSTree;
 	void makeEmptyRec();
 	BSTreeNode* FindRec(KeyType k, int& NumComp);

@@ -51,12 +51,11 @@ void BSTree::Insert(KeyType k, DataType d,int &NumComp)
 		parent = temp;
 		if (k < temp->key)
 		{
-			temp->childrenLeft++;
+			
 			temp = temp->left;
 		}
 		else
 		{
-			temp->childrenRight++;
 			temp = temp->right;
 		}
 		NumComp++;

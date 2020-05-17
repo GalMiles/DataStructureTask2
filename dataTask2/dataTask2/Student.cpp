@@ -65,6 +65,6 @@ bool Student::setName(const string name)
 
 void Student::show() const 
 {
-	cout << this->name;
-	cout << " " << this->id << endl;
+	cout << this->id;
+	cout << this->name << endl;
 }

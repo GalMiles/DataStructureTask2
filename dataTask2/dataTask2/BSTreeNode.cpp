@@ -5,8 +5,7 @@ BSTreeNode::BSTreeNode(KeyType key, DataType data, BSTreeNode * left, BSTreeNode
 	this->key = key;
 	this->left = left;
 	this->right = right;
-	this->childrenLeft = 0;
-	this->childrenRight = 0;
+	
 }
 
 BSTreeNode::~BSTreeNode()
@@ -145,13 +144,14 @@ void BSTreeNode::InOrder() const
 
 void BSTreeNode::InOrderWithLimits(int keyToStop) const
 {
-	if (this->key >= keyToStop)
+	if (this == nullptr)
 		return;
 	else
 	{
-		this->left->InOrder();
-		cout << this->key << ' ';
-		this->right->InOrder();
+		this->left->InOrderWithLimits(keyToStop);
+		if(this->key < keyToStop)
+			cout << this->key << ' ' << this->data << endl;
+		this->right->InOrderWithLimits(keyToStop);
 	}
 }
 
@@ -198,9 +198,4 @@ BSTreeNode * BSTreeNode::getLeft()const
 BSTreeNode * BSTreeNode::getRight()const
 {
 	return this->right;
-}
-
-int BSTreeNode::getNumOfChildrenLeft()const
-{
-	return this->childrenLeft;
 }
