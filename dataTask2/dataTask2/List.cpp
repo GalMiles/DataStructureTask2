@@ -9,6 +9,7 @@ List::List()
 
 List::~List()
 {
+	
 }
 
 void List::makeEmpty()

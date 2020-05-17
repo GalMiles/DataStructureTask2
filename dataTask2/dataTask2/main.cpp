@@ -15,22 +15,37 @@ void makeBSTree(BSTree& treeToBuild, Student** studentArr, int n, int& compareCo
 void QuickSort(Student** studentArr, int left, int right, int& compereCounter);
 int Partition(Student** studentArr, int left, int right,int& compereCounter);
 int PrintBySort(Student** studentArr, int n, int k);
+void checkName(string& name);
+void deleteStudentsArr(Student** studentsArr, int n);
 
 
 int main()
 {
 	int n, k;
-	//int numCompNaive
-	int numCompBst;
+	int numCompNaive, numCompBst, numCompSort;
 	Student** studentArr = GetInput(n, k);
-	//numCompNaive = NaivePrint(studentArr, n, k);
-	//cout << numCompNaive;
-	//numCompBst = BSTPrint(studentArr, n, k);
-	//cout << numCompBst;
-	numCompBst = PrintBySort(studentArr, n, k);
-	cout << numCompBst;
+	cout << endl;
+	numCompNaive = NaivePrint(studentArr, n, k);
+	cout << endl;
+	numCompBst = BSTPrint(studentArr, n, k);
+	cout << endl;
+	numCompSort = PrintBySort(studentArr, n, k);
+	cout << endl;
+	cout << "NaivePrint: " << numCompNaive << " comparisons" << endl;
+	cout << "BSTPrint: " << numCompBst << " comparisons" << endl;
+	cout << "PrintBySort: " << numCompBst << " comparisons" << endl;
+	deleteStudentsArr(studentArr, n);
+
 }
 
+
+
+void deleteStudentsArr(Student** studentsArr, int n)
+{
+	for (int i = 0; i < n; i++)
+		delete studentsArr[i];
+	delete []studentsArr;
+}
 
 Student** GetInput(int& n, int& k)
 {
@@ -41,8 +56,9 @@ Student** GetInput(int& n, int& k)
 	for (int i = 0; i < n; i++)
 	{
 		cin >> id;
+		cin.ignore(128, ' ');
 		getline(cin, name);
-
+		checkName(name);
 		studentArr[i] = new Student(id, name);
 	}
 	cin >> k;
@@ -114,9 +130,7 @@ int NaivePrint(Student** studentArr, int n, int k)
 	int compareCounter = 0;
 	List listToPrint = makeListFromArr(studentArr, n, k, compareCounter);
 	listToPrint.printList();
-
 	return compareCounter;
-	
 }
 int BSTPrint(Student** studentArr, int n, int k)
 {	
@@ -149,6 +163,7 @@ int BSTPrint(Student** studentArr, int n, int k)
 	 }
 	 return numComp;
  }
+
  void QuickSort(Student** studentArr, int left, int right,int& compereCounter)
  {
 	 int pivot;
@@ -159,7 +174,7 @@ int BSTPrint(Student** studentArr, int n, int k)
 		 QuickSort(studentArr, pivot + 1 , right,compereCounter);
 	 }
  }
-
+ 
  int Partition(Student** studentArr, int left, int right, int & compereCounter)
  {
 	 int indexToReturn = left;
@@ -175,4 +190,12 @@ int BSTPrint(Student** studentArr, int n, int k)
 	 swap(studentArr[right], studentArr[indexToReturn]);
 
 	 return indexToReturn;
+ }
+ 
+ void checkName(string& name)
+ {
+	 size_t found;
+	 found = name.find(" ");
+	 if (found >= name.length())
+		exit(1);
  }

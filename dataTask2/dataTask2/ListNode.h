@@ -16,7 +16,7 @@ private:
 public:
 	ListNode(Student* data, ListNode* next);
 	~ListNode();
-	ListNode::ListNode(const ListNode& other);
+	ListNode(const ListNode& cpy);
 	Student* getData();
 	ListNode* getNext();
 	void setData(Student* data);
