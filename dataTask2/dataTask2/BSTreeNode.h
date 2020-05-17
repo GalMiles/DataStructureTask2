@@ -4,24 +4,25 @@
 #include <iostream>
 using namespace std;
 typedef int KeyType;
-typedef Student DataType;
+typedef string DataType;
 
 class BSTreeNode{
 
 private:
 	KeyType key;
-	DataType* data;
+	DataType data;
 	int childrenLeft;
 	int childrenRight;
 	BSTreeNode* left, *right;
 public:
-	BSTreeNode(KeyType key, DataType *data, BSTreeNode* left, BSTreeNode* right);
+	BSTreeNode(KeyType key, DataType data, BSTreeNode* left, BSTreeNode* right);
 	~BSTreeNode();
 	void InOrder() const;
 	void PostOrder()const;
 	void PreOrder()const;
 	KeyType getKey()const;
-	DataType* getData()const;
+	void InOrderWithLimits(int keyToStop) const;
+	DataType getData()const;
 	BSTreeNode* getLeft()const;
 	BSTreeNode* getRight()const;
 	int getNumOfChildrenLeft() const;

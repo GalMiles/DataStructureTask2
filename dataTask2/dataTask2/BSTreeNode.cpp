@@ -1,6 +1,6 @@
 #include "BSTreeNode.h"
 
-BSTreeNode::BSTreeNode(KeyType key, DataType *data, BSTreeNode * left, BSTreeNode * right): data(data)
+BSTreeNode::BSTreeNode(KeyType key, DataType data, BSTreeNode * left, BSTreeNode * right): data(data)
 {
 	this->key = key;
 	this->left = left;
@@ -143,6 +143,19 @@ void BSTreeNode::InOrder() const
 	}
 }
 
+void BSTreeNode::InOrderWithLimits(int keyToStop) const
+{
+	if (this->key >= keyToStop)
+		return;
+	else
+	{
+		this->left->InOrder();
+		cout << this->key << ' ';
+		this->right->InOrder();
+	}
+}
+
+
 void BSTreeNode::PostOrder()const
 {
 	if (this == nullptr)
@@ -172,7 +185,7 @@ KeyType BSTreeNode::getKey()const
 	return this->key;
 }
 
-DataType* BSTreeNode::getData()const
+DataType BSTreeNode::getData()const
 {
 	return this->data;
 }

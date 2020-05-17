@@ -36,7 +36,7 @@ BSTreeNode* BSTree::Find(KeyType k, BSTreeNode**p) const
 {
 	return this->root->FindRec(k, p);
 }
-void BSTree::Insert(KeyType k, DataType* d,int &NumComp)
+void BSTree::Insert(KeyType k, DataType d,int &NumComp)
 {		
 	BSTreeNode* temp = root;
 	BSTreeNode* parent = nullptr;
@@ -89,5 +89,11 @@ BSTreeNode * BSTree::Min() const
 	if (this->root != nullptr)
 		return this->root->Min();
 	return nullptr;
+}
+
+void BSTree::PrintTreeLimitedByKey(int key)
+{
+	if (this->root != nullptr)
+		root->InOrderWithLimits(key);
 }
 
