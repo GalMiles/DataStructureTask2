@@ -26,7 +26,7 @@ public:
 	BSTreeNode* getRight()const;
 	friend class BSTree;
 	void makeEmptyRec();
-	BSTreeNode* FindRec(KeyType k, int& NumComp);
+	BSTreeNode* FindRec(KeyType k);
 	BSTreeNode* FindRec(KeyType k, BSTreeNode**p);
 	void deleteRec(KeyType key);
 	BSTreeNode* Max();

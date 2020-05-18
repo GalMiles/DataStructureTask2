@@ -21,7 +21,7 @@ void BSTreeNode::makeEmptyRec()
 	this->right->makeEmptyRec();
 	delete this;
 }
-BSTreeNode * BSTreeNode::FindRec(KeyType k, int & NumComp)
+BSTreeNode * BSTreeNode::FindRec(KeyType k)
 {
 	BSTreeNode *temp = this;
 	while (temp != nullptr)
@@ -32,7 +32,6 @@ BSTreeNode * BSTreeNode::FindRec(KeyType k, int & NumComp)
 			temp = temp->left;
 		else
 			temp = temp->right;
-		NumComp++;
 	}
 	return nullptr;
 }

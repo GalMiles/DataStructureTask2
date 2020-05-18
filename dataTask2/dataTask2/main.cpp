@@ -33,7 +33,7 @@ int main()
 	cout << endl;
 	cout << "NaivePrint: " << numCompNaive << " comparisons" << endl;
 	cout << "BSTPrint: " << numCompBst << " comparisons" << endl;
-	cout << "PrintBySort: " << numCompBst << " comparisons" << endl;
+	cout << "PrintBySort: " << numCompSort << " comparisons" << endl;
 	deleteStudentsArr(studentArr, n);
 
 }
@@ -68,6 +68,7 @@ Student** GetInput(int& n, int& k)
 List makeListFromArr(Student** studentArr, int n, int k, int& counter)
 {
 	int currentIdOfStudentArr;
+	ListNode* nodeToAddAfter;
 	List listToReturn;
 
 	for (int i = 0; i < n; i++)
@@ -82,10 +83,13 @@ List makeListFromArr(Student** studentArr, int n, int k, int& counter)
 		{
 			ListNode* newNode = new ListNode(studentArr[i], nullptr);
 			currentIdOfStudentArr = studentArr[i]->getId();
-			ListNode* nodeToAddAfter = findNode(listToReturn,currentIdOfStudentArr,counter);
+			counter++;
+			if (listToReturn.getTail()->getData()->getId() < currentIdOfStudentArr)
+				nodeToAddAfter = listToReturn.getTail();
+			else
+				nodeToAddAfter = findNode(listToReturn,currentIdOfStudentArr,counter);
 			if (currentIdOfStudentArr < k)
 			{
-				counter += 2;
 				if (nodeToAddAfter == listToReturn.getHead() && currentIdOfStudentArr < listToReturn.getHead()->getData()->getId())
 					listToReturn.insertToHead(newNode);
 				else
@@ -111,16 +115,17 @@ ListNode* findNode(List listToScan,int id,int& counter)
 		}
 		else if (id <= currentNode->getData()->getId())
 		{
-			counter++;
+
 			foundNode = false;
 			nodeToReturn = listToScan.getHead();
 		}
-		counter += 2;
+		counter ++;
 		currentNode = next;
 		next = next->getNext();
 	}
 	if (foundNode == true)
 		nodeToReturn = listToScan.getTail();
+
 	
 	return nodeToReturn;
 }
@@ -181,12 +186,13 @@ int BSTPrint(Student** studentArr, int n, int k)
 	 for (int i = left; i < right; i++)
 	 {
 		 if (studentArr[i]->getId() < studentArr[right]->getId())
-		 {			 
+		 {		
 			 swap(studentArr[i], studentArr[indexToReturn]);
 			 indexToReturn++;
 		 }
 		 compereCounter++;
 	 }
+
 	 swap(studentArr[right], studentArr[indexToReturn]);
 
 	 return indexToReturn;

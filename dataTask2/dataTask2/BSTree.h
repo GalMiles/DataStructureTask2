@@ -11,7 +11,7 @@ private:
 public:
 	BSTree();
 	~BSTree();
-	BSTreeNode* Find(KeyType k, int& NumComp) const;
+	BSTreeNode* Find(KeyType k) const;
 	void Insert(KeyType k, DataType d, int &NumComp);
 	void Delete(KeyType key);
 	BSTreeNode* Find(KeyType k, BSTreeNode**p) const;
