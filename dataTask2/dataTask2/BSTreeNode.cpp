@@ -1,27 +1,27 @@
 #include "BSTreeNode.h"
 
-BSTreeNode::BSTreeNode(KeyType key, DataType data, BSTreeNode * left, BSTreeNode * right): data(data)
+BSTreeNode::BSTreeNode(KeyType key, DataType data, BSTreeNode * left, BSTreeNode * right) : data(data)
 {
 	this->key = key;
 	this->left = left;
 	this->right = right;
-	
+
 }
 
 BSTreeNode::~BSTreeNode()
 {
-	
+
 }
 void BSTreeNode::makeEmptyRec()
 {
-	if (this==nullptr)
+	if (this == nullptr)
 		return;
 
 	this->left->makeEmptyRec();
 	this->right->makeEmptyRec();
 	delete this;
 }
-BSTreeNode * BSTreeNode::FindRec(KeyType k)
+BSTreeNode * BSTreeNode::FindRec(KeyType k, int & NumComp)
 {
 	BSTreeNode *temp = this;
 	while (temp != nullptr)
@@ -32,6 +32,7 @@ BSTreeNode * BSTreeNode::FindRec(KeyType k)
 			temp = temp->left;
 		else
 			temp = temp->right;
+		NumComp++;
 	}
 	return nullptr;
 }
@@ -106,7 +107,7 @@ void BSTreeNode::deleteRec(KeyType key)
 			delete temp2;
 		}
 		else
-           v->left->deleteRec(v->key);
+			v->left->deleteRec(v->key);
 	}
 }
 BSTreeNode* BSTreeNode::Max()
@@ -148,7 +149,7 @@ void BSTreeNode::InOrderWithLimits(int keyToStop) const
 	else
 	{
 		this->left->InOrderWithLimits(keyToStop);
-		if(this->key < keyToStop)
+		if (this->key < keyToStop)
 			cout << this->key << ' ' << this->data << endl;
 		this->right->InOrderWithLimits(keyToStop);
 	}

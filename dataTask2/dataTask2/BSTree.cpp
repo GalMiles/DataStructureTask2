@@ -28,20 +28,20 @@ BSTree::~BSTree()
 }
 
 
-BSTreeNode* BSTree::Find(KeyType k) const
+BSTreeNode* BSTree::Find(KeyType k, int& NumComp) const
 {
-	return this->root->FindRec(k);
+	return this->root->FindRec(k, NumComp);
 }
 BSTreeNode* BSTree::Find(KeyType k, BSTreeNode**p) const
 {
 	return this->root->FindRec(k, p);
 }
-void BSTree::Insert(KeyType k, DataType d,int &NumComp)
-{		
+void BSTree::Insert(KeyType k, DataType d, int &NumComp)
+{
 	BSTreeNode* temp = root;
 	BSTreeNode* parent = nullptr;
 	BSTreeNode* newNode;
-	if (Find(k) != nullptr)
+	if (Find(k, NumComp) != nullptr)
 	{
 		cout << "Error already exist " << endl;
 		exit(1);
@@ -51,7 +51,7 @@ void BSTree::Insert(KeyType k, DataType d,int &NumComp)
 		parent = temp;
 		if (k < temp->key)
 		{
-			
+
 			temp = temp->left;
 		}
 		else
@@ -78,7 +78,7 @@ void BSTree::Delete(KeyType key)
 
 BSTreeNode* BSTree::Max() const
 {
-	if(this->root != nullptr)
+	if (this->root != nullptr)
 		return this->root->Max();
 	return nullptr;
 }

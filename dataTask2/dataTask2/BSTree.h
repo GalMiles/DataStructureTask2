@@ -11,13 +11,13 @@ private:
 public:
 	BSTree();
 	~BSTree();
-	BSTreeNode* Find(KeyType k) const;
+	BSTreeNode* Find(KeyType k, int& NumComp) const;
 	void Insert(KeyType k, DataType d, int &NumComp);
 	void Delete(KeyType key);
 	BSTreeNode* Find(KeyType k, BSTreeNode**p) const;
 	BSTreeNode* Max() const;
 	BSTreeNode* Min()const;
-	void PrintTree(void);
+	void PrintTree();
 	BSTreeNode *getRoot()const;
 	void makeEmpty();
 	bool isEmpty();
