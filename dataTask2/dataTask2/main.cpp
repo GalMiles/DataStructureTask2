@@ -7,8 +7,8 @@
 using namespace std;
 
 Student** GetInput(int& n, int& k);
-List makeListFromArr(Student** studentArr, int n, int k, int& counter);
-ListNode* findNode(List listToScan, int id, int& counter);
+void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int& counter);
+ListNode* findNode(const List& listToScan, int id, int& counter);
 int NaivePrint(Student** studentArr, int n, int k);
 int BSTPrint(Student** studentArr, int n, int k);
 void makeBSTree(BSTree& treeToBuild, Student** studentArr, int n, int& compareCounter);
@@ -34,8 +34,8 @@ int main()
 	cout << "NaivePrint: " << numCompNaive << " comparisons" << endl;
 	cout << "BSTPrint: " << numCompBst << " comparisons" << endl;
 	cout << "PrintBySort: " << numCompSort << " comparisons" << endl;
-	deleteStudentsArr(studentArr, n);
 
+	deleteStudentsArr(studentArr, n);
 }
 	
 
@@ -65,43 +65,46 @@ Student** GetInput(int& n, int& k)
 	return studentArr;
 }
 
-List makeListFromArr(Student** studentArr, int n, int k, int& counter)
+void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int& counter)
 {
 	int currentIdOfStudentArr;
-	List listToReturn;
 
 	for (int i = 0; i < n; i++)
 	{
 		if (listToReturn.isEmpty())
 		{
-			ListNode* newNode = new ListNode(studentArr[i], nullptr);
-			listToReturn.setHead(newNode);
-			listToReturn.setTail(newNode);
+			currentIdOfStudentArr = studentArr[i]->getId();
+			if (currentIdOfStudentArr < k)
+			{
+				ListNode* newNode = new ListNode(studentArr[i], nullptr);
+				listToReturn.getHead()->setNext(newNode);
+				listToReturn.setTail(newNode);
+			}
 		}
 		else
 		{
-			ListNode* newNode = new ListNode(studentArr[i], nullptr);
 			currentIdOfStudentArr = studentArr[i]->getId();
-			ListNode* nodeToAddAfter = findNode(listToReturn, currentIdOfStudentArr, counter);
 			if (currentIdOfStudentArr < k)
 			{
-				counter += 2;
-				if (nodeToAddAfter == listToReturn.getHead() && currentIdOfStudentArr < listToReturn.getHead()->getData()->getId())
-					listToReturn.insertToHead(newNode);
-				else
-					listToReturn.insertAfter(nodeToAddAfter, newNode);
+				ListNode* newNode = new ListNode(studentArr[i], nullptr);
+				ListNode* nodeToAddAfter = findNode(listToReturn, currentIdOfStudentArr, counter);
+				listToReturn.insertAfter(nodeToAddAfter, newNode);
 			}
+			counter++;
 		}
 	}
-	return listToReturn;
 }
 
-ListNode* findNode(List listToScan, int id, int& counter)
+ListNode* findNode(const List& listToScan, int id, int& counter)
 {
-	ListNode* currentNode = listToScan.getHead();
+	ListNode* currentNode = listToScan.getHead()->getNext();
 	ListNode* next = currentNode->getNext();
 	bool foundNode = true;
 	ListNode* nodeToReturn = listToScan.getHead();
+	if (id < currentNode->getData()->getId())
+	{
+		return nodeToReturn;
+	}
 	while (next && foundNode)
 	{
 		if (id >= currentNode->getData()->getId() && id <= next->getData()->getId())
@@ -109,13 +112,7 @@ ListNode* findNode(List listToScan, int id, int& counter)
 			foundNode = false;
 			nodeToReturn = currentNode;
 		}
-		else if (id <= currentNode->getData()->getId())
-		{
-			
-			foundNode = false;
-			nodeToReturn = listToScan.getHead();
-		}
-		counter += 2;
+		counter ++;
 		currentNode = next;
 		next = next->getNext();
 	}
@@ -128,7 +125,8 @@ ListNode* findNode(List listToScan, int id, int& counter)
 int NaivePrint(Student** studentArr, int n, int k)
 {
 	int compareCounter = 0;
-	List listToPrint = makeListFromArr(studentArr, n, k, compareCounter);
+	List listToPrint;
+	makeListFromArr(listToPrint,studentArr, n, k, compareCounter);
 	listToPrint.printList();
 	return compareCounter;
 }

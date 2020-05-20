@@ -150,8 +150,10 @@ void BSTreeNode::InOrderWithLimits(int keyToStop) const
 	{
 		this->left->InOrderWithLimits(keyToStop);
 		if (this->key < keyToStop)
+		{
 			cout << this->key << ' ' << this->data << endl;
-		this->right->InOrderWithLimits(keyToStop);
+			this->right->InOrderWithLimits(keyToStop);
+		}
 	}
 }
 

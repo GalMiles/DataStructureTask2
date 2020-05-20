@@ -15,6 +15,12 @@ ListNode::~ListNode()
 }
 
 
+ListNode::ListNode(const ListNode&& cpy)
+{
+	this->data = cpy.data;
+	this->next = cpy.next;
+
+}
 
 Student* ListNode::getData()
 {

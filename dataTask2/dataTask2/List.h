@@ -13,6 +13,8 @@ private:
 public:
 	List();
 	~List();
+	List(const List& cpy);
+	List(const List&& cpy);
 	void makeEmpty();
 	bool isEmpty();
 	void insertToTail(ListNode* nodeToAdd);
@@ -20,8 +22,8 @@ public:
 	void insertAfter(ListNode* nodeToAddAfter, ListNode* nodeToAdd);
 	void deleteAfterNode(ListNode* nodeToDeleteAfter);
 	void printList();
-	ListNode* getHead();
-	ListNode* getTail();
+	ListNode* getHead() const;
+	ListNode* getTail() const;
 	void setTail(ListNode* tail);
 	void setHead(ListNode* head);
 	

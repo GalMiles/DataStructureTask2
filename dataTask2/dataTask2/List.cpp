@@ -3,24 +3,48 @@
 
 List::List()
 {
-	this->head = nullptr;
-	this->tail = nullptr;
+	ListNode* dummy = new ListNode(nullptr, nullptr);
+	this->head = dummy;
+	this->tail = dummy;
 }
 
 List::~List()
 {
+	makeEmpty();
+	delete this->head;
+}
+
+List::List(const List & cpy)
+{
+	ListNode* nextCpy = nullptr;
+	ListNode* next = nullptr;
+	ListNode* currCpy = cpy.getHead()->getNext();
+	ListNode *curr = this->head;
 	
+	while (currCpy)
+	{
+		curr = currCpy;
+		nextCpy = currCpy->getNext();
+		next = curr->getNext();
+		currCpy = nextCpy;
+		curr = next;
+	}
+
+}
+
+List::List(const List&& cpy)
+{
+	this->setHead(cpy.getHead());
 }
 
 void List::makeEmpty()
 {
 	ListNode* next = nullptr;
-	ListNode* curr = this->head;
+	ListNode* curr = this->head->getNext();
 
 	while (curr)
 	{
-		if(curr->getNext() != nullptr)
-			next = curr->getNext();
+		next = curr->getNext();
 		delete curr;
 		curr = next;
 	}
@@ -29,7 +53,7 @@ void List::makeEmpty()
 
 bool List::isEmpty()
 {
-	if (this->head == nullptr)
+	if (this->head == this->tail)
 	{
 		return true;
 	}
@@ -42,11 +66,13 @@ void List::insertToTail(ListNode * nodeToAdd)
 	this->tail = nodeToAdd;
 }
 
+/*
 void List::insertToHead(ListNode* nodeToAdd)
 {
-	nodeToAdd->setNext(this->head);
-	this->head = nodeToAdd;
+	nodeToAdd->setNext(this->head->getNext());
+	this->head->setNext(nodeToAdd);
 }
+*/
 
 void List::insertAfter(ListNode* nodeToAddAfter, ListNode* nodeToAdd)
 {
@@ -82,7 +108,7 @@ void List::deleteAfterNode(ListNode* nodeToDeleteAfter)
 
 void List::printList()
 {
-	ListNode* currentNode = this->head;
+	ListNode* currentNode = this->head->getNext();
 	while (currentNode)
 	{
 		currentNode->printNode();
@@ -91,12 +117,12 @@ void List::printList()
 	}
 }
 
-ListNode * List::getHead()
+ListNode* List::getHead() const
 {
 	return this->head;
 }
 
-ListNode * List::getTail()
+ListNode * List::getTail() const
 {
 	return this->tail;
 }
@@ -106,7 +132,7 @@ void List::setTail(ListNode * tail)
 	this->tail = tail;
 }
 
-void List::setHead(ListNode * head)
+void List::setHead(ListNode* head)
 {
 	this->head = head;
 }

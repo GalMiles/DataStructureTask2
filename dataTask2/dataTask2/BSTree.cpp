@@ -41,11 +41,6 @@ void BSTree::Insert(KeyType k, DataType d, int &NumComp)
 	BSTreeNode* temp = root;
 	BSTreeNode* parent = nullptr;
 	BSTreeNode* newNode;
-	if (Find(k, NumComp) != nullptr)
-	{
-		cout << "Error already exist " << endl;
-		exit(1);
-	}
 	while (temp != nullptr)
 	{
 		parent = temp;
