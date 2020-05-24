@@ -17,6 +17,7 @@ int Partition(Student** studentArr, int left, int right, int& compereCounter);
 int PrintBySort(Student** studentArr, int n, int k);
 void checkName(string& name);
 void deleteStudentsArr(Student** studentsArr, int n);
+bool checkIfIdExist(int id, int arrSize, Student** studArr);
 
 
 int main()
@@ -56,15 +57,30 @@ Student** GetInput(int& n, int& k)
 	for (int i = 0; i < n; i++)
 	{
 		cin >> id;
-		cin.ignore(128, ' ');
-		getline(cin, name);
-		checkName(name);
-		studentArr[i] = new Student(id, name);
+		if (!checkIfIdExist(id, i, studentArr))
+		{
+			cin.ignore(128, ' ');
+			getline(cin, name);
+			checkName(name);
+			studentArr[i] = new Student(id, name);
+		}
 	}
 	cin >> k;
 	return studentArr;
 }
 
+bool checkIfIdExist(int id,int arrSize,Student** studArr)
+{
+	for (int i = 0; i < arrSize; i++)
+	{
+		if (id == studArr[i]->getId())
+		{
+			cout << "Invalid input" << endl;
+			exit(1);
+		}
+	}
+	return false;
+}
 void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int& counter)
 {
 	int currentIdOfStudentArr;
