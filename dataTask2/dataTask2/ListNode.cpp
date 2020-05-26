@@ -9,9 +9,15 @@ ListNode::ListNode(Student * data, ListNode* next)
 	this->next = next;
 }
 
-ListNode::~ListNode()
+ListNode::~ListNode()//no need to delete becuese no any allocation inside listNode
 {
 	
+}
+
+ListNode::ListNode(const ListNode & cpy)
+{
+this->data = cpy.data;
+this->next = cpy.next;
 }
 
 

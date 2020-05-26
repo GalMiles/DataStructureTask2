@@ -66,13 +66,6 @@ void List::insertToTail(ListNode * nodeToAdd)
 	this->tail = nodeToAdd;
 }
 
-/*
-void List::insertToHead(ListNode* nodeToAdd)
-{
-	nodeToAdd->setNext(this->head->getNext());
-	this->head->setNext(nodeToAdd);
-}
-*/
 
 void List::insertAfter(ListNode* nodeToAddAfter, ListNode* nodeToAdd)
 {
