@@ -5,7 +5,6 @@ BSTreeNode::BSTreeNode(KeyType key, DataType data, BSTreeNode * left, BSTreeNode
 	this->key = key;
 	this->left = left;
 	this->right = right;
-
 }
 
 BSTreeNode::~BSTreeNode()
@@ -21,22 +20,8 @@ void BSTreeNode::makeEmptyRec()
 	this->right->makeEmptyRec();
 	delete this;
 }
-BSTreeNode * BSTreeNode::FindRec(KeyType k, int & NumComp)
-{
-	BSTreeNode *temp = this;
-	while (temp != nullptr)
-	{
-		if (k == temp->key)
-			return temp;
-		else if (k < temp->key)
-			temp = temp->left;
-		else
-			temp = temp->right;
-		NumComp++;
-	}
-	return nullptr;
-}
-BSTreeNode * BSTreeNode::FindRec(KeyType k, BSTreeNode ** p)
+
+BSTreeNode* BSTreeNode::FindRec(KeyType k, BSTreeNode** p)
 {
 	BSTreeNode*tempP = nullptr;
 	BSTreeNode* temp = this;
@@ -142,21 +127,20 @@ void BSTreeNode::InOrder() const
 	}
 }
 
-void BSTreeNode::InOrderWithLimits(int keyToStop) const
+void BSTreeNode::InOrderWithLimits(int keyToStop) const//print until k dont want to print after
 {
 	if (this == nullptr)
 		return;
 	else
 	{
 		this->left->InOrderWithLimits(keyToStop);
-		if (this->key < keyToStop)
+		if (this->key < keyToStop)//bst tree so no need to go to right sub tree becuese it is greater then k
 		{
 			cout << this->key << ' ' << this->data << endl;
 			this->right->InOrderWithLimits(keyToStop);
 		}
 	}
 }
-
 
 void BSTreeNode::PostOrder()const
 {

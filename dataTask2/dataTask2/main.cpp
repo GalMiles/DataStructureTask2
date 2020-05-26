@@ -19,18 +19,21 @@ void checkName(string& name);
 void deleteStudentsArr(Student** studentsArr, int n);
 bool checkIfIdExist(int id, int arrSize, Student** studArr);
 
-
+/*
+To run the program insert number of students, insert id space name (this format - 12 david levi) and after insert the next student,
+then insert k this wiil be the limit k will print
+*/
 int main()
 {
 	int n, k;
 	int numCompNaive, numCompBst, numCompSort;
-	Student** studentArr = GetInput(n, k);
+	Student** studentArr = GetInput(n, k);//get input from user
 	cout << endl;
-	numCompNaive = NaivePrint(studentArr, n, k);
+	numCompNaive = NaivePrint(studentArr, n, k);//make the list and print and return the number of comparison in the function
 	cout << endl;
-	numCompBst = BSTPrint(studentArr, n, k);
+	numCompBst = BSTPrint(studentArr, n, k);//make the tree and print it and return the number of comparison in the tree while it is build
 	cout << endl;
-	numCompSort = PrintBySort(studentArr, n, k);
+	numCompSort = PrintBySort(studentArr, n, k);//make quick sort to the students array and returnthe number of comparison
 	cout << endl;
 	cout << "NaivePrint: " << numCompNaive << " comparisons" << endl;
 	cout << "BSTPrint: " << numCompBst << " comparisons" << endl;
@@ -41,7 +44,7 @@ int main()
 	
 
 
-void deleteStudentsArr(Student** studentsArr, int n)
+void deleteStudentsArr(Student** studentsArr, int n)//relese all the the students array
 {
 	for (int i = 0; i < n; i++)
 		delete studentsArr[i];
@@ -69,7 +72,7 @@ Student** GetInput(int& n, int& k)
 	return studentArr;
 }
 
-bool checkIfIdExist(int id,int arrSize,Student** studArr)
+bool checkIfIdExist(int id,int arrSize,Student** studArr)//check each id is insert one time if try to insert same id the program will exit
 {
 	for (int i = 0; i < arrSize; i++)
 	{
@@ -81,7 +84,7 @@ bool checkIfIdExist(int id,int arrSize,Student** studArr)
 	}
 	return false;
 }
-void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int& counter)
+void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int& counter)//make the list and print it, insert to list and make it sorted
 {
 	int currentIdOfStudentArr;
 
@@ -106,12 +109,12 @@ void makeListFromArr(List& listToReturn,Student** studentArr, int n, int k, int&
 				ListNode* nodeToAddAfter = findNode(listToReturn, currentIdOfStudentArr, counter);
 				listToReturn.insertAfter(nodeToAddAfter, newNode);
 			}
-			counter++;
 		}
+		counter++;
 	}
 }
 
-ListNode* findNode(const List& listToScan, int id, int& counter)
+ListNode* findNode(const List& listToScan, int id, int& counter)//find node in the list to add after
 {
 	ListNode* currentNode = listToScan.getHead()->getNext();
 	ListNode* next = currentNode->getNext();
@@ -138,7 +141,7 @@ ListNode* findNode(const List& listToScan, int id, int& counter)
 	return nodeToReturn;
 }
 
-int NaivePrint(Student** studentArr, int n, int k)
+int NaivePrint(Student** studentArr, int n, int k)//make list,print it and return number of comparison
 {
 	int compareCounter = 0;
 	List listToPrint;
@@ -146,7 +149,7 @@ int NaivePrint(Student** studentArr, int n, int k)
 	listToPrint.printList();
 	return compareCounter;
 }
-int BSTPrint(Student** studentArr, int n, int k)
+int BSTPrint(Student** studentArr, int n, int k)//make bst tree,print it and return number of comparison
 {
 	BSTree TreeToPrint;
 	TreeToPrint.makeEmpty();
@@ -165,7 +168,7 @@ void makeBSTree(BSTree& treeToBuild, Student** studentArr, int n, int& compareCo
 	}
 }
 
-int PrintBySort(Student** studentArr, int n, int k)
+int PrintBySort(Student** studentArr, int n, int k)//do quick sort for the students array and print if smaller then k
 {
 	int numComp = 0;
 	QuickSort(studentArr, 0, n - 1, numComp);
@@ -190,7 +193,7 @@ void QuickSort(Student** studentArr, int left, int right, int& compereCounter)
 	}
 }
 
-int Partition(Student** studentArr, int left, int right, int & compereCounter)
+int Partition(Student** studentArr, int left, int right, int & compereCounter)// we will chose the pivot to be the right in the array each time
 {
 	int indexToReturn = left;
 	for (int i = left; i < right; i++)
@@ -208,7 +211,7 @@ int Partition(Student** studentArr, int left, int right, int & compereCounter)
 	return indexToReturn;
 }
 
-void checkName(string& name)
+void checkName(string& name)//check if valid name
 {
 	size_t found;
 	found = name.find(" ");

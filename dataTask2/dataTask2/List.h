@@ -18,7 +18,6 @@ public:
 	void makeEmpty();
 	bool isEmpty();
 	void insertToTail(ListNode* nodeToAdd);
-	void insertToHead(ListNode* nodeToAdd);
 	void insertAfter(ListNode* nodeToAddAfter, ListNode* nodeToAdd);
 	void deleteAfterNode(ListNode* nodeToDeleteAfter);
 	void printList();

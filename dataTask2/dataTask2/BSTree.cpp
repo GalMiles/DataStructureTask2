@@ -27,16 +27,11 @@ BSTree::~BSTree()
 	this->makeEmpty();
 }
 
-
-BSTreeNode* BSTree::Find(KeyType k, int& NumComp) const
-{
-	return this->root->FindRec(k, NumComp);
-}
 BSTreeNode* BSTree::Find(KeyType k, BSTreeNode**p) const
 {
 	return this->root->FindRec(k, p);
 }
-void BSTree::Insert(KeyType k, DataType d, int &NumComp)
+void BSTree::Insert(KeyType k, DataType d, int& NumComp)
 {
 	BSTreeNode* temp = root;
 	BSTreeNode* parent = nullptr;
